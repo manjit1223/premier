@@ -4,6 +4,7 @@ module.exports = {
       name: "staging.premier.art",
       script: "npm",
       args: "start",
+      
     },
   ],
 };
