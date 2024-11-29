@@ -1,0 +1,25 @@
+$color-start: #dea827;
+$color-middle: #d59b30;
+$color-end: #cc8f39;
+
+.gradientButton {
+  background: linear-gradient(to bottom, $color-start, $color-middle, $color-end);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.errMsg {
+  color: #ff4e4e;
+}
+
+.inputbox:-webkit-autofill,
+.inputbox:-webkit-autofill:hover,
+.inputbox:-webkit-autofill:focus,
+.inputbox:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #000000 inset !important; 
+  box-shadow: 0 0 0 1000px transparent inset !important; 
+  -webkit-text-fill-color: #ffffff !important; 
+  transition: background-color 5000s ease-in-out 0s !important; 
+}

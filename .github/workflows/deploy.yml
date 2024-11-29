@@ -1,0 +1,44 @@
+name: Premir Front-End Deployment
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PREMIER_SERVER_PEM_FILE }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Deploy to EC2 (Dev)
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@54.205.129.93 "source ~/.nvm/nvm.sh && cd /home/ubuntu/staging.premier.art && git checkout dev && git pull origin dev && rm -rf .next/ && npm install && npm run build && pm2 restart staging.premier.art"
+
+  deploy-main:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PREMIER_SERVER_PEM_FILE }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Deploy to EC2 (Main)
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@98.83.68.15 "source ~/.nvm/nvm.sh && cd /home/ubuntu/www.premier.art && git checkout main && git pull origin main && rm -rf .next/ && npm install && npm run build && pm2 restart www.premier.art"

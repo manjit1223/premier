@@ -1,0 +1,11 @@
+$color-start: #dea827;
+$color-middle: #d59b30;
+$color-end: #cc8f39;
+
+.gradientButton {
+  background: linear-gradient(to bottom, $color-start, $color-middle, $color-end);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
